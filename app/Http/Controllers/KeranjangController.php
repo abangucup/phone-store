@@ -16,24 +16,24 @@ class KeranjangController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function __construct()
-     {
-         $this->middleware('auth');
-     }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function index()
     {
         $id = Auth::user()->id;
         $data = DB::select("SELECT transaksis.total, users.name, transaksis.jumlah, produks.gambar, produks.merk, produks.nama, transaksis.status FROM transaksis JOIN users JOIN produks ON transaksis.user_id = users.id AND transaksis.produk_id = produks.id WHERE transaksis.user_id = $id ");
-            // dd($data);
+        // dd($data);
 
         $keranjang = DB::table('transaksis')
-        ->where('user_id', Auth::user()->id)
+            ->where('user_id', Auth::user()->id)
             ->where('status', 'keranjang')
             ->get()
             ->count();
         $dipesan = DB::table('transaksis')
-        ->where('user_id', Auth::user()->id)
+            ->where('user_id', Auth::user()->id)
             ->where('status', 'dipesan')
             ->get()
             ->count();
@@ -64,7 +64,7 @@ class KeranjangController extends Controller
         $produk = Produk::find($request->produk_id);
         $setStok = Produk::find($request->produk_id);
         $setStok->stok = $produk->stok - 1;
-        $setStok->update(); 
+        $setStok->update();
 
         $transaksi = new Transaksi();
         $transaksi->user_id = $request->user_id;
@@ -73,8 +73,10 @@ class KeranjangController extends Controller
         $transaksi->total = $request->harga;
         $transaksi->status = "keranjang";
         $transaksi->save();
+
         return redirect()->route('user.index');
     }
+
     public function toCart()
     {
         dd($this->get('produk_id'));
@@ -111,7 +113,8 @@ class KeranjangController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd($id);    
+        // dd($request);
     }
 
     /**

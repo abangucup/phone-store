@@ -17,10 +17,18 @@
                             <a href="" class="btn btn-success disabled">
                                 Berhasil
                             </a>
+                            {{-- @elseif($value->status === "keranjang")
+
+                            <a href="" class="btn btn-warning">
+                                Pesan Sekarang
+                            </a> --}}
                             @elseif($value->status === "keranjang")
-                            <a href="" class="btn btn-warning disabled">
-                                Dikeranjang
-                            </a>
+
+                            {{-- <form method="POST" action="{{ route('transaksi.store') }}">
+                                @csrf --}}
+                                <button type="submit" class="btn btn-warning mt-2">Pesan Sekarang</button>
+                                {{--
+                            </form> --}}
                             @else
                             <a href="" class="btn btn-danger disabled">
                                 Segera Dibayar

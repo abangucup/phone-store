@@ -36,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/user', UserController::class);
     Route::resource('/akun', AkunController::class);
     Route::resource('/keranjang', KeranjangController::class);
+    // Route::post('/keranjang', [KeranjangController::class, 'storeTransaksi'])->name('keranjang.storeTransaksi'); 
     Route::post('/user/cari', [UserController::class, 'cari']);
     Route::get('admin/produk', [AdminController::class, 'produk']);
     Route::get('admin/produk/tambah', [AdminController::class, 'tambah_produk']);

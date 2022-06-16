@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ConfirmEmail;
 use App\Models\Produk;
 use App\Models\Transaksi;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminController extends Controller
@@ -93,8 +96,12 @@ class AdminController extends Controller
     public function update_status($id)
     {
         $transaksi = Transaksi::find($id);
+        // $user = User::
+        // $transaksi = Transaksi::find($id);
+        // dd($transaksi->user->name);
         $transaksi->status = "selesai";
         $transaksi->update();
+        Mail::to($transaksi->user->email)->send(new ConfirmEmail($transaksi->user->name));
         Alert::success('Berhasil', 'berhasil mengkonfirmasi pembayaran');
         return redirect('admin/transaksi');
     }
